@@ -1,3 +1,4 @@
+import Control.Monad (unless, when)
 import Data.Char (isDigit, isSpace)
 import System.Environment
 import System.IO
@@ -10,14 +11,13 @@ processSrtFile filePath = do
 processLines :: Handle -> IO ()
 processLines handle = do
   eof <- hIsEOF handle
-  if eof
-    then return ()
-    else do
-      line <- hGetLine handle
-      if not (startsWithBracket line) && not (isTimestamp line) && not (isEmptyLine line) && not (startsWithNumber line)
-        then putStrLn line
-        else return ()
-      processLines handle
+  unless eof $ do
+    line <- hGetLine handle
+    when (shouldPrintLine line) (putStrLn line)
+    processLines handle
+
+shouldPrintLine :: String -> Bool
+shouldPrintLine line = not (startsWithBracket line) && not (isTimestamp line) && not (isEmptyLine line) && not (startsWithNumber line)
 
 startsWithBracket :: String -> Bool
 startsWithBracket ('[' : _) = True
