@@ -63,6 +63,7 @@ executable srtTool
 
     -- Modules included in this executable, other than Main.
     -- other-modules:
+    other-modules: Utils
 
     -- LANGUAGE extensions used by modules in this package.
     -- other-extensions:
@@ -76,3 +77,15 @@ executable srtTool
 
     -- Base language which the package is written in.
     default-language: Haskell2010
+
+test-suite testSuite
+  type: exitcode-stdio-1.0
+  main-is: MainSpec.hs
+  other-modules: Utils
+  build-depends:
+    base >= 4.12 && < 5,
+    HUnit
+  hs-source-dirs:
+    test
+    app
+  default-language: Haskell2010

@@ -1,7 +1,9 @@
+module Main (isEmptyLine, main) where
+
 import Control.Monad (unless, when)
-import Data.Char (isDigit, isSpace)
 import System.Environment
 import System.IO
+import Utils
 
 processSrtFile :: FilePath -> IO ()
 processSrtFile filePath = do
@@ -18,19 +20,6 @@ processLines handle = do
 
 shouldPrintLine :: String -> Bool
 shouldPrintLine line = not (startsWithBracket line) && not (isTimestamp line) && not (isEmptyLine line) && not (startsWithNumber line)
-
-startsWithBracket :: String -> Bool
-startsWithBracket ('[' : _) = True
-startsWithBracket _ = False
-
-isTimestamp :: String -> Bool
-isTimestamp line = "-->" `elem` words line
-
-isEmptyLine :: String -> Bool
-isEmptyLine = all isSpace
-
-startsWithNumber :: String -> Bool
-startsWithNumber line = not (null line) && isDigit (head line)
 
 main :: IO ()
 main = do
