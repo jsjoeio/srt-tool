@@ -20,9 +20,8 @@ processLines handle = do
       processLines handle
 
 startsWithBracket :: String -> Bool
-startsWithBracket line = case line of
-  ('[' : _) -> True
-  _ -> False
+startsWithBracket ('[' : _) = True
+startsWithBracket _ = False
 
 isTimestamp :: String -> Bool
 isTimestamp line = "-->" `elem` words line
