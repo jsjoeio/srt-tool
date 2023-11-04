@@ -28,7 +28,7 @@ isTimestamp :: String -> Bool
 isTimestamp line = "-->" `elem` words line
 
 isEmptyLine :: String -> Bool
-isEmptyLine line = null (filter (not . isSpace) line)
+isEmptyLine = all isSpace
 
 startsWithNumber :: String -> Bool
 startsWithNumber line = not (null line) && isDigit (head line)
